@@ -4,15 +4,7 @@ import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flash_chat/screens/registration_screen.dart';
 import 'package:flash_chat/screens/welcome.dart';
 
-// void main() => runApp(FlashChat());
-void main() {
-  try {
-    runApp(const FlashChat());
-  } catch (e, stackTrace) {
-    debugPrint("Error: $e");
-    debugPrint("StackTrace: $stackTrace");
-  }
-}
+void main() => runApp(FlashChat());
 
 class FlashChat extends StatelessWidget {
   const FlashChat({super.key});
@@ -26,12 +18,12 @@ class FlashChat extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black54),
         ),
       ),
-      initialRoute: 'welcome',
+      initialRoute: WelcomeScreen.id,
       routes: {
-        'welcome': (context) => WelcomeScreen(),
-        'login_screen': (context) => LoginScreen(),
-        'registration_screen': (context) => RegistrationScreen(),
-        'chat_screen': (context) => ChatScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        RegistrationScreen.id: (context) => RegistrationScreen(),
+        ChatScreen.id: (context) => ChatScreen(),
       },
     );
   }

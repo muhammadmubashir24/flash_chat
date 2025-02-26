@@ -5,9 +5,13 @@ import 'package:flash_chat/screens/registration_screen.dart';
 import 'package:flash_chat/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Load .env file
+  await dotenv.load(fileName: ".env");
+  // Initialize Firebase with environment variables
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

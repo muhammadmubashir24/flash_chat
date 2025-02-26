@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,21 +50,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDQL22sk4Js4LcQdmTnh2wsBDMQyAp-qF8',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_ANDROID'] ?? '',
     appId: '1:1054242368651:android:3fc4157182a069906df88e',
     messagingSenderId: '1054242368651',
     projectId: 'flash-chat-673e1',
     storageBucket: 'flash-chat-673e1.firebasestorage.app',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyASKs1W_hPijuTdvJw6rkZ6o_Ymcg8ftDY',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_IOS'] ?? '',
     appId: '1:1054242368651:ios:a0c9d767a67d94456df88e',
     messagingSenderId: '1054242368651',
     projectId: 'flash-chat-673e1',
     storageBucket: 'flash-chat-673e1.firebasestorage.app',
     iosBundleId: 'flashchat.com.example.flashChat',
   );
-
 }

@@ -11,3 +11,18 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# Flutter & Dart
+.dart_tool/
+.idea/
+.packages
+build/
+ios/Pods/
+pubspec.lock
+
+# Firebase
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Env
+.env

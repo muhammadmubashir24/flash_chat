@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
@@ -8,6 +7,8 @@ import '../components/RoundedButton.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = "welcome";
+
+  const WelcomeScreen({super.key});
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -50,9 +51,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               children: <Widget>[
                 Hero(
                   tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
+                  child: SizedBox(
                     height: 60.0,
+                    child: Image.asset('images/logo.png'),
                   ),
                 ),
                 AnimatedTextKit(

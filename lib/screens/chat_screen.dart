@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 final _store = FirebaseFirestore.instance;
 User? loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = "chat_screen";
+
+  const ChatScreen({super.key});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -103,6 +106,8 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class MessageStream extends StatelessWidget {
+  const MessageStream({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -125,12 +130,20 @@ class MessageStream extends StatelessWidget {
         for (var message in messages) {
           final messageText = message['text'];
           final messageSender = message['sender'];
+          final messageTimestamp = message['timestamp'] as Timestamp?;
+
+          String formattedTimestamp = "";
+          if (messageTimestamp != null) {
+            DateTime dateTime = messageTimestamp.toDate();
+            formattedTimestamp = DateFormat.yMMMd().add_jm().format(dateTime);
+          }
 
           final currentUser = loggedInUser?.email;
 
           final textBubble = MessageBubble(
             text: messageText,
             sender: messageSender,
+            time: formattedTimestamp,
             isMe: currentUser == messageSender,
           );
           messageBubbles.add(textBubble);
@@ -149,11 +162,16 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.text, required this.sender, required this.isMe});
+  const MessageBubble(
+      {super.key, required this.text,
+      required this.sender,
+      required this.isMe,
+      required this.time});
 
   final String text;
   final String sender;
   final bool isMe;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +184,9 @@ class MessageBubble extends StatelessWidget {
           Text(
             sender,
             style: TextStyle(fontSize: 12.0, color: Colors.white54),
+          ),
+          SizedBox(
+            height: 2.0,
           ),
           Material(
             elevation: 5.0,
@@ -190,6 +211,13 @@ class MessageBubble extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 2.0,
+          ),
+          Text(
+            time,
+            style: TextStyle(fontSize: 12.0, color: Colors.white54),
           ),
         ],
       ),
